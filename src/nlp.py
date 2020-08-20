@@ -1,13 +1,14 @@
-import re
+import os
 from collections import Counter
 from typing import List
-from src.manage_models import get_model_from_disk
 
 import spacy
 
-model = 'en_core_web_md-2.3.1'
-# model = 'en_core_web_sm-2.3.1'
+from src.manage_models import get_model_from_disk
 
+model = os.environ['SPACY_MODEL_MEDIUM']
+model_sm = os.environ['SPACY_MODEL_SMALL']
+ 
 model_location = get_model_from_disk(model)
 
 nlp = spacy.load(model_location)

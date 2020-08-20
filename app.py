@@ -1,13 +1,15 @@
-from flask import Flask, request, jsonify
-from src.nlp import find_locations
+import os
 
 import sentry_sdk
+from flask import Flask, jsonify, request
 from sentry_sdk.integrations.flask import FlaskIntegration
 
-your_sentry_dsn = 'https://0faaadd6ed104e2cbc28a4e05bd2f4ea@o304275.ingest.sentry.io/5380111'  # TODO fill this
+import settings
+from src.nlp import find_locations
+
 
 sentry_sdk.init(
-    dsn=your_sentry_dsn,
+    dsn=os.environ['SENTRY_DSN'],
     integrations=[FlaskIntegration()]
 )
 
@@ -30,4 +32,3 @@ def route_find_locations():
 def trigger_error():
     request_args = process_request_arguments(request)
     division_by_zero = 1 / 0
-

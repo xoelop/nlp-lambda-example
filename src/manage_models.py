@@ -1,15 +1,17 @@
-import boto3
+import argparse
+import os
 import tarfile
 from pathlib import Path
+
+import boto3
 import requests
-import os
 
-import argparse
+import settings
 
-model = 'en_core_web_md-2.3.1'
-model_sm = 'en_core_web_sm-2.3.1'
+model = os.environ['SPACY_MODEL_MEDIUM']
+model_sm = os.environ['SPACY_MODEL_SMALL']
 dest = '/tmp/models'
-s3_bucket = 'noicejobs'
+s3_bucket = os.environ['S3_BUCKET']
 
 
 def makedir_if_not_exists(dest):
