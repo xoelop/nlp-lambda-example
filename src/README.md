@@ -24,6 +24,6 @@ S3_BUCKET=your_bucket
 ```
 
 # Deploying it
-Delete `zappa_settings.json` and create one from scratch if you want, or change the S3 bucket name in the JSON provided
+Delete `zappa_settings.json` and create one from scratch if you want, or change the S3 bucket name in the JSON provided. I used different buckets to store the models and the lambda code but you can probably use the same one.
 
 Then, do `zappa deploy dev` and it should be deployed in a couple minutes
