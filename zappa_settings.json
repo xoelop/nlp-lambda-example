@@ -1,0 +1,15 @@
+{
+    "dev": {
+        "app_function": "app.app",
+        "aws_region": "us-east-1",
+        "profile_name": "default",
+        "project_name": "noicejobs-nlp-lambda",
+        "runtime": "python3.8",
+        "s3_bucket": "noicejobs-nlp-lambda",
+        "slim_handler": true,
+        "keep_warm": true,
+        "memory_size": 1408,
+        "lambda_concurrency": 100,
+        "exclude": ["__pycache__", ".pytest_cache", ".vscode", "*.pyc", "test/*"]
+    }
+}
