@@ -17,7 +17,7 @@ def makedir_if_not_exists(dest):
         os.makedirs(dest)
 
 
-def download_model_from_github(model, dest: str = '/tmp/models'):
+def download_model_from_github(model: str, dest: str = '/tmp/models') -> str:
     print(f'Downloading {model} to {dest}')
     url = f'https://github.com/explosion/spacy-models/releases/download/{model}/{model}.tar.gz'
 
@@ -30,14 +30,14 @@ def download_model_from_github(model, dest: str = '/tmp/models'):
         with open(filename, 'wb') as f:
             for chunk in r.iter_content(chunk_size=8192):
                 f.write(chunk)
-    untar_file(filename, dest)
+    unzip_file(filename, dest)
     uncompressed_file = os.path.join(Path(dest), model)
     print(f'Downloaded to {uncompressed_file}')
     
     return uncompressed_file
 
 
-def download_model_from_s3(model, dest: str):
+def download_model_from_s3(model: str, dest: str) -> str:
     print(f'Downloading {model} from S3')
     makedir_if_not_exists(dest)
     filename = os.path.join(Path(dest), f'{model}.tar.gz')
@@ -47,21 +47,20 @@ def download_model_from_s3(model, dest: str):
     s3 = boto3.client('s3')
     s3.download_file(s3_bucket, object_name, filename)
 
-    untar_file(filename, dest)
+    unzip_file(filename, dest)
     uncompressed_file = os.path.join(Path(dest), model)
     print(f'Downloaded to {uncompressed_file}')
-
 
     return uncompressed_file
 
 
-def untar_file(filename: str, dest: str):
+def unzip_file(filename: str, dest: str):
     print(f'Unzipping {filename}')
     with tarfile.open(filename) as f:
         f.extractall(path=dest)
 
 
-def get_model_from_disk(model: str, dest: str = dest):
+def get_model_from_disk(model: str, dest: str = dest) -> str:
     print(f'Getting model {model} from disk')
     filename = os.path.join(Path(dest), model)
     if not os.path.exists(filename):
